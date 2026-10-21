@@ -1,164 +1,169 @@
-# 知年轮 · CogniRings
+# CogniRings
 
-**让每次探索长出知识分枝，让每次理解留下成长年轮。**
+**English** | [简体中文](i18n/README.zh-CN.md)
 
-A knowledge-map-driven AI mentor for guided discovery, cross-domain learning, and a personal learning story.
+**Grow your knowledge. Keep the story of how you learned.**
 
-知年轮是一个面向 Codex 的成长导师技能。它围绕你的实际问题组织知识地图，通过引导式对话、近期研究、跨领域连接与实践反馈，持续维护个人能力画像和学习记录。
+CogniRings (知年轮) is an AI mentoring skill for Codex. It organizes knowledge around your real questions and uses guided dialogue, recent research, connections across disciplines, and practical feedback to maintain a personal learning profile and learning journal.
 
-每次咨询都帮助你回答：**我在知识地图的哪里？这次补充了什么？下一步怎样验证自己的理解？**
+Each consultation helps you answer: **Where am I on the knowledge map? What am I adding? How can I check my understanding?**
 
-[开始使用](#开始使用) · [工作方式](#工作方式) · [成长档案](#成长档案) · [许可证](#许可证)
+[Get started](#get-started) · [How it works](#how-it-works) · [Learning archive](#learning-archive) · [License](#license)
 
-## 适合用来做什么
+## What you can use it for
 
-| 你的目标 | 知年轮提供什么 |
+| Your goal | How CogniRings helps |
 | --- | --- |
-| 进入一个不熟悉的领域 | 展开局部知识地图，补充前置概念与关键问题 |
-| 持续了解行业变化 | 按主题整理近期事项，说明时间、来源、变化与相关性 |
-| 从新闻走向判断 | 解释机制、适用条件、取舍与反例 |
-| 寻找跨领域方法 | 建立原学科与当前问题之间的连接，写清成立条件和边界 |
-| 看见自己的成长 | 保存有证据的能力变化、真实反馈、知识架构与历史报告 |
+| Explore an unfamiliar field | Build a local knowledge map and identify prerequisites and key questions |
+| Follow changes in an industry | Organize recent developments by topic, with dates, sources, changes, and relevance |
+| Develop judgment from what you read | Explain mechanisms, assumptions, trade-offs, and counterexamples |
+| Find methods in other disciplines | Connect a method to your problem and explain when the connection holds or breaks |
+| See how your understanding develops | Preserve evidence of skills, real feedback, knowledge maps, and past reports |
 
-AI 是内置的示例领域，包含模型动向、应用工程、评测优化和来源判断四个入口。其他领域可以按问题建立自己的结构。
+AI is the included example domain, with four starting points: model developments, application engineering, evaluation and optimization, and source assessment. Other domains can develop their own structure around your questions.
 
-## 工作方式
+## How it works
 
 ```mermaid
 flowchart LR
-    Q[你的问题与目标] --> M[局部知识地图]
-    M --> D[引导式对话]
-    D --> R[近期研究与基础补充]
-    R --> U[理解、判断与可选实践]
-    U --> F[真实反馈与作品证据]
+    Q[Your questions and goals] --> M[Local knowledge map]
+    M --> D[Guided dialogue]
+    D --> R[Recent research and foundations]
+    R --> U[Understanding, judgment, and optional practice]
+    U --> F[Real feedback and work samples]
     F --> M
-    F --> A[个人画像与成长年轮]
+    F --> A[Learning profile and growth journal]
 ```
 
-这些环节可以按需要切换。通常先问一个能改变下一步的问题；已经熟悉基础，就进入取舍与反例；遇到陌生概念，就补前置知识。你也可以随时说“直接讲”“举个例子”“先看资讯”或“这次不记档”。
+Move between these activities as needed. The mentor usually starts with one question that can change what happens next. If you know the foundations, explore trade-offs and counterexamples. If a concept is unfamiliar, fill in the prerequisites. You can also say “explain directly,” “give me an example,” “show me the news first,” or “don't save this session.”
 
-### 一条资讯，两条坐标
+### Two coordinates for every insight
 
-每条重点材料既标注**知识位置**，也标注**成长活动**。
+Key material is labeled with both its **position in the knowledge map** and the **learning activity** it supports.
 
-| 坐标 | 示例 |
+| Coordinate | Example |
 | --- | --- |
-| 知识位置 | AI → 评测与优化 → 可比性 → 帕累托前沿 |
-| 成长活动 | 框架、决策、审查 |
-| 跨域连接 | 模型选型 → 决策理论中的多目标优化 |
-| 可以留下的证据 | 说明两组结果能否比较，并给出取舍依据 |
+| Knowledge position | AI → Evaluation and optimization → Comparability → Pareto frontier |
+| Learning activity | Framework building, decision-making, review |
+| Connection across disciplines | Model selection → Multi-objective optimization in decision theory |
+| Evidence you could produce | Explain whether two results are comparable and justify a choice |
 
-成长活动包括地图、框架、模式、决策、实践、审查、教学、迁移/创新，可以交替发生。它们用于选择学习方式，不构成统一等级或个人总分。
+Learning activities include mapping, framework building, pattern recognition, decision-making, practice, review, teaching, and transfer/innovation. You can move between them. They help select an approach to learning; they are not a universal ladder or a score for the learner.
 
-### 分层报告
+### Reports with layers of depth
 
-1. **导航层**：本次问题位于哪里，为什么先看这些。
-2. **资讯层**：按主题列出事项，保留日期、原链接、来源大类、发布者与核验情况。
-3. **理解层**：解释机制、实例、前置知识、适用边界和跨域联系。
-4. **成长层**：说明本轮提供了什么、有什么实际反馈，以及下一步可以怎样验证。
+1. **Orientation:** Where the question sits and why these topics come first.
+2. **Developments:** Items grouped by topic, with dates, original links, source categories, publishers, and verification status.
+3. **Understanding:** Mechanisms, examples, prerequisites, limitations, and connections to other disciplines.
+4. **Growth:** What the session provided, what feedback actually occurred, and how to check understanding next.
 
-## 与 last30days 的关系
+## Relationship with last30days
 
-[last30days](https://github.com/mvanhorn/last30days-skill) 是独立的近期研究依赖。知年轮负责导师对话、知识组织与成长记录；需要近期信息时，委托原版 last30days，再补充一手核验、基础知识和跨域材料。
+[last30days](https://github.com/mvanhorn/last30days-skill) is an independent dependency for recent research. CogniRings handles mentoring, knowledge organization, and learning records. When recent information is needed, it delegates to the original last30days skill, then adds primary-source verification, foundational material, and connections across disciplines.
 
-| 组件 | 职责 |
+| Component | Responsibility |
 | --- | --- |
-| last30days | 近期检索、来源处理及其研究输出 |
-| CogniRings | 目标定位、引导提问、知识架构、分层解释、反馈与档案 |
+| last30days | Recent research, source handling, and research output |
+| CogniRings | Goal setting, guided questions, knowledge maps, layered explanations, feedback, and archives |
 
-本仓库不包含或修改 last30days 的实现。两个技能分别安装、独立升级。执行时以所安装上游版本的说明为准；来源覆盖、凭据和费用也遵循上游及宿主环境。来源不可用会明确记录，补充搜索会单独归因。
+This repository does not bundle or modify the last30days implementation. Install and update the two skills separately. Follow the instructions for the installed upstream version; source coverage, credentials, and costs depend on that version and your host environment. Unavailable sources are disclosed, and supplementary searches are attributed separately.
 
-没有近期检索需求时，可以只进行讲解、知识整理或反馈复盘。
+Sessions that do not need recent research can focus on explanations, organizing knowledge, or reviewing feedback.
 
-## 开始使用
+## Get started
 
-### 环境
+### Requirements
 
-- 能加载本地技能、读写文件并执行 Python 的 Codex 环境。
-- 本地归档工具使用 Python 标准库，面向 macOS/Linux；本仓库在 Python 3.14 上验证。原生 Windows 暂未适配，脚本使用 `fcntl` 文件锁。
-- 进行近期研究时，需要独立安装 last30days，并满足它当前的运行时与来源配置要求。
-- 使用其他 Agent 宿主时，需要自行适配技能发现、工具和依赖调用；本仓库未声明这些宿主已经验证。
+- A Codex environment that can load local skills, read and write files, and run Python.
+- The archive tool uses the Python standard library and targets macOS/Linux. This repository has been validated with Python 3.14. Native Windows is not currently supported because the script uses `fcntl` file locks.
+- Recent research requires a separate last30days installation and its current runtime and source configuration.
+- Other agent hosts require their own skill discovery, tool, and dependency integration. Compatibility with those hosts has not been verified here.
 
-### 1. 安装知年轮
+### 1. Install CogniRings
 
-把当前 GitHub 仓库链接发给 Codex，然后说：
-
-```text
-请用 $skill-installer 安装这个仓库里的 cognirings 技能。
-技能入口 SKILL.md 位于仓库根目录。
-```
-
-也可以将下载后的仓库目录放到 `~/.agents/skills/cognirings/`，确保该目录直接包含 `SKILL.md`。已有安装时先检查，避免重复安装同名技能。安装位置与加载方式参见 [OpenAI 官方技能文档](https://learn.chatgpt.com/docs/build-skills)。
-
-### 2. 安装近期研究依赖
+Share this GitHub repository's URL with Codex, then ask:
 
 ```text
-请用 $skill-installer 安装 mvanhorn/last30days-skill 仓库中的
-skills/last30days 技能，保持上游原样，并检查它需要的运行环境。
+Use $skill-installer to install the cognirings skill from this repository.
+Its SKILL.md entry point is at the repository root.
 ```
 
-配置细节见 [last30days 官方仓库](https://github.com/mvanhorn/last30days-skill)。安装完成后可请 Codex 确认两个技能已可用；若未出现，按宿主提示重新加载。
+You can also place the downloaded repository at `~/.agents/skills/cognirings/`, with `SKILL.md` directly inside that directory. Check for an existing installation before adding another skill with the same name. See the [official OpenAI skills documentation](https://learn.chatgpt.com/docs/build-skills) for local discovery and installation locations.
 
-### 3. 开始一次咨询
+### 2. Install the research dependency
 
 ```text
-用 $cognirings 帮我建立 AI 领域的知识树。
-我关心模型动向、应用工程、评测优化和优质网站。
-先了解我的实际工作与判断方式，再决定补哪些知识。
+Use $skill-installer to install skills/last30days from
+mvanhorn/last30days-skill. Keep the upstream implementation unchanged
+and check its runtime requirements.
 ```
 
-继续已有领域：
+See the [last30days repository](https://github.com/mvanhorn/last30days-skill) for configuration details. After installation, ask Codex to confirm that both skills are available. If they do not appear, follow your host's reload instructions.
+
+### 3. Start a consultation
 
 ```text
-用 $cognirings 继续我的 AI 知识树。
-这次围绕模型选型，看看我是否忽略了成本、延迟和评测口径。
+Use $cognirings to help me build a knowledge tree for AI.
+I'm interested in model developments, application engineering,
+evaluation and optimization, and useful websites.
+Start with my actual work and how I make decisions, then identify
+which knowledge to explore. Respond in English.
 ```
 
-寻找跨领域方法：
+Continue an existing domain:
 
 ```text
-用 $cognirings 帮我理解：AI 评测里的 Judge 一致性，
-能从测量论借鉴什么？请说明对应关系和失效边界。
+Use $cognirings to continue my AI knowledge tree.
+This time, focus on model selection and check whether I'm overlooking
+cost, latency, or differences in evaluation protocols.
 ```
 
-保存一次真实反馈：
+Explore a connection across disciplines:
 
 ```text
-用 $cognirings 复盘我的这次实验。
-请根据实际结果更新能力画像和 Storybook，保留之前的切片。
+Use $cognirings to explain what AI judge consistency can learn
+from measurement theory. Explain the connection and where it breaks down.
 ```
 
-## 成长档案
-
-每个领域维护当前画像与知识架构，同时保留每次咨询的完整历史切片：
+Record feedback from real work:
 
 ```text
-我
-├── 领域 A
-│   ├── 当前能力画像
-│   ├── 当前知识架构
-│   └── 历史年轮
-│       └── 当次画像、知识架构、Storybook、知识报告
-└── 领域 B
-    └── 独立维护，并与其他领域建立有依据的连接
+Use $cognirings to review this experiment.
+Update my learning profile and Storybook using the actual results,
+while preserving the earlier snapshots.
 ```
 
-知识树用于导航，底层保留图关系。前置关系需要无环；类比、应用、对比和跨域联系可以成网。
+## Learning archive
 
-### 能力由证据更新
+Each domain maintains a current learning profile and knowledge map, along with a complete historical snapshot of every saved consultation:
 
-| 状态 | 含义 |
+```text
+Me
+├── Domain A
+│   ├── Current learning profile
+│   ├── Current knowledge map
+│   └── Growth history
+│       └── Profile, knowledge map, Storybook, and report for each session
+└── Domain B
+    └── Maintained separately, with supported connections to other domains
+```
+
+The tree provides navigation; the underlying structure retains graph relationships. Prerequisites must be acyclic, while analogies, applications, comparisons, and connections across domains can form a network.
+
+### Evidence drives profile updates
+
+| Status | Meaning |
 | --- | --- |
-| 尚未验证 | 目前没有证据，不代表不会 |
-| 确认接触 | 用户确认读过或听过，尚不能据此判断掌握 |
-| 自述掌握 | 保留用户自述及其出处 |
-| 有表现证据 | 有实际回答、分析或作品，结论限于验证范围 |
+| Not yet verified | There is no evidence yet; this does not imply a lack of ability |
+| Confirmed exposure | You confirm reading or hearing about something; mastery is not established |
+| Self-reported | Your own description is preserved with its source |
+| Demonstrated | An answer, analysis, or work sample supports a claim within the scope checked |
 
-辅助程度另行记录：在提示下完成与独立完成是不同证据。Storybook 保存真实问题、反馈和理解变化；尚未反馈就明确留空。
+Assistance is recorded separately: completing something with hints provides different evidence from completing it independently. The Storybook preserves actual questions, feedback, and changes in understanding. If feedback has not happened, it stays explicitly unrecorded.
 
-### 文件放在哪里
+### Where files live
 
-默认档案目录为 `~/Documents/CogniRings`，与技能代码分开。可以在对话中指定其他目录，也可以让宿主向技能提供 `COGNIRINGS_HOME`。
+The default archive location is `~/Documents/CogniRings`, separate from the skill's code. You can specify another directory in conversation or make `COGNIRINGS_HOME` available to the skill through your host.
 
 ```text
 CogniRings/
@@ -174,31 +179,32 @@ CogniRings/
         └── report.md
 ```
 
-每次保存新的切片后更新当前入口，已有历史不会被同名提交覆盖。个人档案默认留在本地；公开检索使用抽象后的技术问题。宿主模型处理与网络行为仍取决于你使用的 Agent 环境。
+Each save writes a new snapshot before updating the current pointer. A submission cannot overwrite an existing session with the same ID. Personal archives are stored locally by default, and public searches use generalized technical questions. Model processing and network behavior still depend on your agent host.
 
-## 本地归档工具
+## Local archive tool
 
-日常使用通过对话完成。下面的 CLI 供 Agent 或开发者管理档案，在仓库根目录执行：
+Everyday use happens through conversation. The following CLI commands are for agents and developers managing the archive. Run them from the repository root:
 
 ```bash
-python3 scripts/archive.py init --root "$HOME/Documents/CogniRings" --person-name "我"
+python3 scripts/archive.py init --root "$HOME/Documents/CogniRings" --person-name "Me"
 python3 scripts/archive.py status --root "$HOME/Documents/CogniRings"
 python3 scripts/archive.py validate --root "$HOME/Documents/CogniRings"
 ```
 
-提交前按 [档案契约](references/archive-contract.md) 准备 `bundle.json`，再执行：
+Prepare a `bundle.json` according to the [archive contract (Chinese)](references/archive-contract.md), then commit it:
 
 ```bash
 python3 scripts/archive.py commit --root "$HOME/Documents/CogniRings" --domain ai --bundle bundle.json
 ```
 
-CLI 始终需要显式传入 `--root`；`COGNIRINGS_HOME` 是技能层的路径约定。`status` 只读，`validate` 会核对档案并重建 `INDEX.md`。脚本不判断用户是否学会了某个概念。
+The CLI always requires an explicit `--root`; `COGNIRINGS_HOME` is a convention followed by the skill. `status` is read-only. `validate` checks the archive and rebuilds `INDEX.md`. The script does not determine whether a learner has mastered a concept.
 
-## 仓库结构与验证
+## Repository layout and validation
 
 ```text
 cognirings/
 ├── README.md
+├── i18n/README.zh-CN.md
 ├── DESCRIPTION.txt
 ├── LICENSE
 ├── SKILL.md
@@ -214,27 +220,27 @@ cognirings/
     └── test_archive.py
 ```
 
-运行归档测试：
+Run the archive tests:
 
 ```bash
 python3 scripts/test_archive.py -v
 ```
 
-测试覆盖历史保留、重复提交、路径检查、前置关系、失败恢复、并发提交和来源引用。测试验证的是归档行为，学习效果仍需要真实使用与产出验证。
+The tests cover history preservation, duplicate submissions, path validation, prerequisites, failure recovery, concurrent commits, and source references. They validate archive behavior. Learning outcomes still require evidence from actual use and work.
 
-当前交付是技能指令与本地归档工具。知识地图以 Markdown、Mermaid 和 JSON 保存；不包含独立 Web 应用、云同步或自动定时采集服务。
+The current package contains skill instructions and a local archive tool. Knowledge maps are stored as Markdown, Mermaid, and JSON. It does not include a standalone web application, cloud synchronization, or an automatic research scheduler.
 
-## 设计参考
+## Design references
 
-- [last30days](https://github.com/mvanhorn/last30days-skill)：独立近期研究依赖。
-- [grill-me](https://github.com/RobMitt/grill-me-skill)：一次一个关键问题与依赖式访谈。
-- [Universal Diagnostic Tutor](https://github.com/SenmuuuuW/universal-diagnostic-tutor-skill)：前置缺口与诊断式引导。
-- [Supertutor](https://github.com/cskwork/supertutor-skill)：区分提示与独立表现，关注新情境应用。
+- [last30days](https://github.com/mvanhorn/last30days-skill): Independent recent-research dependency.
+- [grill-me](https://github.com/RobMitt/grill-me-skill): One key question at a time and interviews guided by dependencies.
+- [Universal Diagnostic Tutor](https://github.com/SenmuuuuW/universal-diagnostic-tutor-skill): Prerequisite gaps and diagnostic guidance.
+- [Supertutor](https://github.com/cskwork/supertutor-skill): Distinguishing assisted from independent performance and checking understanding in new situations.
 
-具体借鉴与边界见 [设计依据](references/design-provenance.md)。参考项目的链接不意味着其代码或许可被并入本仓库。
+See the [design notes (Chinese)](references/design-provenance.md) for specific influences and boundaries. Linking to a reference project does not incorporate its code or license into this repository.
 
-## 许可证
+## License
 
-本仓库采用 [MIT License](LICENSE)，覆盖本项目的原创代码与随附文档。允许使用、修改、分发及商业使用，须保留版权和许可声明；不提供担保。正式条款以 LICENSE 为准。
+This repository uses the [MIT License](LICENSE) for its original code and accompanying documentation. Use, modification, redistribution, and commercial use are permitted, subject to retaining the copyright and permission notice. No warranty is provided. See LICENSE for the full terms.
 
-last30days 和其他外部项目继续遵循各自许可证。用户学习档案、检索所得材料和外部网页不因使用本技能而自动取得本仓库的 MIT 许可。
+last30days and other external projects retain their own licenses. Personal learning archives, retrieved material, and external web pages do not automatically acquire this repository's MIT license through use of the skill.
