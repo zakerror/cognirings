@@ -2,6 +2,8 @@
 
 本技能管理成长目标；原版last30days管理近期检索。不复制搜索实现。
 
+安装收尾或首次调用先执行[安装与自检](installation.md)。依赖缺失由Agent通过官方skill-installer补齐；用户只提出一次安装请求。脚本的文件/解释器检查不替代原版的研究前运行时和来源检查。
+
 先读宿主实际加载的last30days入口；可定位`$CODEX_HOME/skills/last30days`、`~/.codex/skills/last30days`或`~/.agents/skills/last30days`，并完整读取其要求的runtime/runbook/agent-mode等文档。
 
 2026-10-21核验：[上游](https://github.com/mvanhorn/last30days-skill)入口为`skills/last30days/SKILL.md`，版本3.28.1，commit `832d09591568e37dd990ccb9d5c51fb4a403f5ed`。未来执行以已安装版本为准，独立升级，不改成分叉。

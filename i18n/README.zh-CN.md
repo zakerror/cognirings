@@ -68,7 +68,7 @@ flowchart LR
 | last30days | 近期检索、来源处理及其研究输出 |
 | CogniRings | 目标定位、引导提问、知识架构、分层解释、反馈与档案 |
 
-本仓库不包含或修改 last30days 的实现。两个技能分别安装、独立升级。执行时以所安装上游版本的说明为准；来源覆盖、凭据和费用也遵循上游及宿主环境。来源不可用会明确记录，补充搜索会单独归因。
+本仓库不包含或修改 last30days 的实现。你只需提出一次安装请求，Agent 会安装知年轮并完成依赖检查：已有 last30days 就复用，缺失时从原仓库补齐。两个组件仍独立维护。来源覆盖、凭据和费用遵循所安装的上游版本及宿主环境；来源不可用会明确记录，补充搜索会单独归因。
 
 没有近期检索需求时，可以只进行讲解、知识整理或反馈复盘。
 
@@ -78,30 +78,25 @@ flowchart LR
 
 - 能加载本地技能、读写文件并执行 Python 的 Codex 环境。
 - 本地归档工具使用 Python 标准库，面向 macOS/Linux；本仓库在 Python 3.14 上验证。原生 Windows 暂未适配，脚本使用 `fcntl` 文件锁。
-- 进行近期研究时，需要独立安装 last30days，并满足它当前的运行时与来源配置要求。
+- Agent 会在安装时处理 last30days 依赖并检查 Python 3.12+；运行时不满足时按上游支持的方法配置或选用解释器，再重试。可选研究来源可能需要各自的凭据。
 - 使用其他 Agent 宿主时，需要自行适配技能发现、工具和依赖调用；本仓库未声明这些宿主已经验证。
 
-### 1. 安装知年轮
+### 一次请求，完成安装
 
-把当前 GitHub 仓库链接发给 Codex，然后说：
-
-```text
-请用 $skill-installer 安装这个仓库里的 cognirings 技能。
-技能入口 SKILL.md 位于仓库根目录。
-```
-
-也可以将下载后的仓库目录放到 `~/.agents/skills/cognirings/`，确保该目录直接包含 `SKILL.md`。已有安装时先检查，避免重复安装同名技能。安装位置与加载方式参见 [OpenAI 官方技能文档](https://learn.chatgpt.com/docs/build-skills)。
-
-### 2. 安装近期研究依赖
+只需向 Codex 发送这一条请求：
 
 ```text
-请用 $skill-installer 安装 mvanhorn/last30days-skill 仓库中的
-skills/last30days 技能，保持上游原样，并检查它需要的运行环境。
+请用 $skill-installer 安装 https://github.com/zakerror/cognirings。
+读取安装后的 SKILL.md，并自动完成其中的依赖安装与检查。
 ```
 
-配置细节见 [last30days 官方仓库](https://github.com/mvanhorn/last30days-skill)。安装完成后可请 Codex 确认两个技能已可用；若未出现，按宿主提示重新加载。
+Agent 会从仓库根目录安装技能，复用已有的 last30days 或自动安装缺失的原版依赖，并在报告结果前检查运行环境。你不需要再执行“安装依赖”这一步。
 
-### 3. 开始一次咨询
+手动安装也会在首次使用时执行同样的检查。若将仓库复制到 `~/.agents/skills/cognirings/`，确保目录内直接包含 `SKILL.md`，并避免重复安装。技能发现方式参见 [OpenAI 官方技能文档](https://learn.chatgpt.com/docs/build-skills)。
+
+安装过程不会替你注册付费服务或登录可选来源；真正研究前仍按 last30days 进行来源检查。网络、权限或必要运行时确实阻塞时，Agent 会说明具体原因，不会把未完成的安装报成成功。
+
+### 开始一次咨询
 
 ```text
 用 $cognirings 帮我建立 AI 领域的知识树。
@@ -208,6 +203,7 @@ cognirings/
 ├── SKILL.md
 ├── agents/openai.yaml
 ├── references/
+│   ├── installation.md
 │   ├── mentoring.md
 │   ├── archive-contract.md
 │   ├── research-adapter.md
@@ -215,16 +211,18 @@ cognirings/
 │   └── design-provenance.md
 └── scripts/
     ├── archive.py
-    └── test_archive.py
+    ├── ensure_dependencies.py
+    ├── test_archive.py
+    └── test_dependencies.py
 ```
 
-运行归档测试：
+运行归档和依赖测试：
 
 ```bash
-python3 scripts/test_archive.py -v
+python3 -m unittest discover -s scripts -p 'test_*.py' -v
 ```
 
-测试覆盖历史保留、重复提交、路径检查、前置关系、失败恢复、并发提交和来源引用。测试验证的是归档行为，学习效果仍需要真实使用与产出验证。
+测试覆盖历史保留、失败恢复、并发提交、来源引用，以及依赖安装和复用。测试验证的是工具行为，学习效果仍需要真实使用与产出验证。Agent 执行安装的细节见 [安装与自检](../references/installation.md)。
 
 当前交付是技能指令与本地归档工具。知识地图以 Markdown、Mermaid 和 JSON 保存；不包含独立 Web 应用、云同步或自动定时采集服务。
 

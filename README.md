@@ -66,7 +66,7 @@ Learning activities include mapping, framework building, pattern recognition, de
 | last30days | Recent research, source handling, and research output |
 | CogniRings | Goal setting, guided questions, knowledge maps, layered explanations, feedback, and archives |
 
-This repository does not bundle or modify the last30days implementation. Install and update the two skills separately. Follow the instructions for the installed upstream version; source coverage, credentials, and costs depend on that version and your host environment. Unavailable sources are disclosed, and supplementary searches are attributed separately.
+This repository does not bundle or modify the last30days implementation. A single setup request installs CogniRings and handles its dependency checks: an existing last30days installation is reused, and a missing one is installed from the original repository. The two components remain independently maintained. Source coverage, credentials, and costs follow the installed upstream version and your host environment. Unavailable sources are disclosed, and supplementary searches are attributed separately.
 
 Sessions that do not need recent research can focus on explanations, organizing knowledge, or reviewing feedback.
 
@@ -76,31 +76,25 @@ Sessions that do not need recent research can focus on explanations, organizing 
 
 - A Codex environment that can load local skills, read and write files, and run Python.
 - The archive tool uses the Python standard library and targets macOS/Linux. This repository has been validated with Python 3.14. Native Windows is not currently supported because the script uses `fcntl` file locks.
-- Recent research requires a separate last30days installation and its current runtime and source configuration.
+- The agent handles the last30days dependency during setup and checks for Python 3.12+. If the runtime needs attention, it follows the upstream setup instructions and retries when possible. Optional research sources can require their own credentials.
 - Other agent hosts require their own skill discovery, tool, and dependency integration. Compatibility with those hosts has not been verified here.
 
-### 1. Install CogniRings
+### Install with one request
 
-Share this GitHub repository's URL with Codex, then ask:
-
-```text
-Use $skill-installer to install the cognirings skill from this repository.
-Its SKILL.md entry point is at the repository root.
-```
-
-You can also place the downloaded repository at `~/.agents/skills/cognirings/`, with `SKILL.md` directly inside that directory. Check for an existing installation before adding another skill with the same name. See the [official OpenAI skills documentation](https://learn.chatgpt.com/docs/build-skills) for local discovery and installation locations.
-
-### 2. Install the research dependency
+Send this single request to Codex:
 
 ```text
-Use $skill-installer to install skills/last30days from
-mvanhorn/last30days-skill. Keep the upstream implementation unchanged
-and check its runtime requirements.
+Use $skill-installer to install https://github.com/zakerror/cognirings.
+Read the installed SKILL.md and complete its dependency setup automatically.
 ```
 
-See the [last30days repository](https://github.com/mvanhorn/last30days-skill) for configuration details. After installation, ask Codex to confirm that both skills are available. If they do not appear, follow your host's reload instructions.
+The agent installs the skill from the repository root, reuses an existing last30days installation or installs the original dependency if missing, and checks the runtime before reporting the result. There is no separate dependency-installation step for you.
 
-### 3. Start a consultation
+The same check runs on first use after a manual installation. If you copy the repository to `~/.agents/skills/cognirings/`, keep `SKILL.md` directly inside that folder and avoid duplicate installations. See the [official OpenAI skills documentation](https://learn.chatgpt.com/docs/build-skills) for local skill discovery.
+
+Dependency setup does not sign you up for paid services or log in to optional sources. Research-time source checks still follow last30days. If network access, permissions, or a required runtime prevent completion, the agent reports the specific blocker rather than claiming setup succeeded.
+
+### Start a consultation
 
 ```text
 Use $cognirings to help me build a knowledge tree for AI.
@@ -210,6 +204,7 @@ cognirings/
 ├── SKILL.md
 ├── agents/openai.yaml
 ├── references/
+│   ├── installation.md
 │   ├── mentoring.md
 │   ├── archive-contract.md
 │   ├── research-adapter.md
@@ -217,16 +212,18 @@ cognirings/
 │   └── design-provenance.md
 └── scripts/
     ├── archive.py
-    └── test_archive.py
+    ├── ensure_dependencies.py
+    ├── test_archive.py
+    └── test_dependencies.py
 ```
 
-Run the archive tests:
+Run the archive and dependency tests:
 
 ```bash
-python3 scripts/test_archive.py -v
+python3 -m unittest discover -s scripts -p 'test_*.py' -v
 ```
 
-The tests cover history preservation, duplicate submissions, path validation, prerequisites, failure recovery, concurrent commits, and source references. They validate archive behavior. Learning outcomes still require evidence from actual use and work.
+The tests cover archive history, failure recovery, concurrent commits, source references, and dependency installation and reuse. They validate tooling behavior. Learning outcomes still require evidence from actual use and work. See the [installation notes (Chinese)](references/installation.md) for the agent-facing setup contract.
 
 The current package contains skill instructions and a local archive tool. Knowledge maps are stored as Markdown, Mermaid, and JSON. It does not include a standalone web application, cloud synchronization, or an automatic research scheduler.
 
