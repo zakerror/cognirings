@@ -1,0 +1,24 @@
+# Python and local development
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.DS_Store
+
+# Credentials and local configuration
+.env
+.env.*
+!.env.example
+*.log
+
+# Personal learning archives belong outside the repository
+/CogniRings/
+/archives/
+/research/
+/domains/
+/person.json
+/INDEX.md
+/bundle.json
+
+# Local packaging output
+*.zip

@@ -1,0 +1,4 @@
+interface:
+  display_name: "知年轮 · CogniRings"
+  short_description: "以知识架构驱动趋势探索、跨域引导与个人成长，持续保存画像和学习年轮"
+  default_prompt: "使用 $cognirings 围绕我的实际问题更新知识地图，结合近期资讯进行导师式引导，并保存本次学习记录。"

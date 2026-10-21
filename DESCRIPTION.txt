@@ -1,0 +1,1 @@
+CogniRings is an AI mentor that connects guided dialogue, recent research, and cross-domain exploration to grow your knowledge map, refine your learning profile, and capture your learning journey. Uses the original last30days skill for recent research.
