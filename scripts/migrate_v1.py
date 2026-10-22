@@ -217,12 +217,14 @@ def migrate(source, destination, plan=None):
             readme += "\n".join(f"- {a['created_at'][:10]} · [{a['title']}]({link(reading_path, a['path'])})" for a in reversed(entries)) if entries else "尚无直接关联的正式报告。\n"
             write(destination, f"knowledge/{node['path']}/reading.md", readme + "\n")
             source_text = f"# {node['title']} · 来源\n\n来源用于支撑知识解释，不代表个人已经掌握。迁移沿用原核验日期。\n\n"
+            if not node.get("source_refs"):
+                source_text += "本节点尚未登记直接来源；可从[历史报告](reading.md)追溯已有解释。扩展具体事实和方法时需要补充原始来源与核验范围。\n"
             for sid in node.get("source_refs", []):
                 src = sources[sid]
                 label = src.get("name", sid)
                 name = f"[{label}]({src['url']})" if src.get("url") else label + "（本地或受限来源）"
                 source_text += f"- {name}：{src.get('platform', '')}；{src.get('role', '')}。{src.get('useful_for', '')} 局限：{src.get('limitations', '需按具体用途核验')}。\n"
-            write(destination, f"knowledge/{node['path']}/sources.md", source_text)
+            write(destination, f"knowledge/{node['path']}/sources.md", source_text.rstrip() + "\n")
             cap = next((c for c in latest[node["domain"]]["profile"].get("capabilities", []) if c["node_id"] == node["id"]), {})
             personal = metadata(node["id"]) + f"# {node['title']} · 我的理解\n\n当前为 **U · 未校准**。已整理的资料与项目背景不直接证明本主题的独立理解。\n\n"
             personal += f"[阅读知识综述]({link(pp, kp)})\n\n"
