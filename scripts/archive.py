@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Append-only local learning snapshots; current.json is the authoritative pointer."""
+"""CogniRings archives: v2 knowledge/profile/journal, with v1 compatibility."""
 import argparse
 from collections import deque
 from contextlib import contextmanager
@@ -319,38 +319,60 @@ def validate(root):
     status(root)
     count = 0
     for domain in domains(root):
-        with lock(domain / ".lock"):
-            sessions = child(domain, "sessions")
-            if not sessions.exists():
-                continue
-            for folder in sessions.iterdir():
-                if folder.name.startswith(".stage-"):
-                    continue  # Interrupted staging is never authoritative.
-                identifier(folder.name)
-                require(not folder.is_symlink() and folder.is_dir(), f"Invalid session directory: {folder}")
-                check_snapshot(folder, domain.name)
-                count += 1
-    return {"valid": True, "snapshots": count, "warnings": index_warnings(root)}
+        sessions = child(domain, "sessions")
+        if not sessions.exists():
+            continue
+        for folder in sessions.iterdir():
+            if folder.name.startswith(".stage-"):
+                continue  # Interrupted staging is never authoritative.
+            identifier(folder.name)
+            require(not folder.is_symlink() and folder.is_dir(), f"Invalid session directory: {folder}")
+            check_snapshot(folder, domain.name)
+            count += 1
+    return {"valid": True, "snapshots": count, "warnings": []}
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
-    for name in ("init", "commit", "validate", "status"):
+    for name in ("init", "commit", "record", "freeze", "refresh", "validate", "status"):
         command = commands.add_parser(name)
         command.add_argument("--root", required=True, type=Path)
         if name == "init":
             command.add_argument("--person-name", required=True)
+            command.add_argument("--schema-version", type=int, choices=(1, 2), default=2)
         if name == "commit":
             command.add_argument("--domain", required=True)
+        if name in ("commit", "record"):
             command.add_argument("--bundle", required=True, type=Path)
+        if name == "freeze":
+            command.add_argument("--session-id", required=True)
+            command.add_argument("--title")
+            command.add_argument("--created-at")
     args = parser.parse_args()
-    root = args.root.expanduser().resolve()
+    root = args.root.expanduser().absolute()
     try:
+        import archive_v2
+        is_v2 = (root / ".cognirings/archive.json").exists()
         if args.command == "init":
-            result = initialize(root, args.person_name)
+            require(not (is_v2 and args.schema_version == 1), "A v2 archive cannot be reinitialized as v1")
+            initializer = archive_v2.initialize if args.schema_version == 2 else initialize
+            result = initializer(root, args.person_name)
+        elif args.command in ("record", "freeze"):
+            require(is_v2, f"{args.command} requires a v2 archive; migrate explicitly first")
+            if args.command == "record":
+                result = archive_v2.record(root, read_json(args.bundle.expanduser()))
+            else:
+                result = archive_v2.freeze(root, args.session_id, args.title, args.created_at)
         elif args.command == "commit":
+            require(not is_v2, "Use record --bundle for v2 journals")
             result = commit(root, args.domain, read_json(args.bundle.expanduser()))
+        elif is_v2:
+            result = {"status": archive_v2.status, "validate": archive_v2.validate,
+                      "refresh": archive_v2.refresh}[args.command](root)
+        elif args.command == "refresh":
+            validate(root)
+            result = {"refreshed": True, "schema_version": 1, "warnings": index_warnings(root)}
         else:
             result = {"status": status, "validate": validate}[args.command](root)
         print(encoded(result), end="")

@@ -4,240 +4,193 @@
 
 **Grow your knowledge. Keep the story of how you learned.**
 
-CogniRings (知年轮) is an AI mentoring skill for Codex. It organizes knowledge around your real questions and uses guided dialogue, recent research, connections across disciplines, and practical feedback to maintain a personal learning profile and learning journal.
+CogniRings (知年轮) is an AI mentoring skill for Codex. It connects guided dialogue, recent research, practical feedback, and ideas across disciplines to build a knowledge tree around your real questions.
 
-Each consultation helps you answer: **Where am I on the knowledge map? What am I adding? How can I check my understanding?**
+Your archive has three readable views: **knowledge** explains what has been learned about a subject, **profile** describes your current understanding with evidence, and **journal** preserves the reports and personal feedback from each activity. Collected material does not imply mastery.
 
-[Get started](#get-started) · [How it works](#how-it-works) · [Learning archive](#learning-archive) · [License](#license)
+[Get started](#get-started) · [How it works](#how-it-works) · [Your learning archive](#your-learning-archive) · [Local tooling](#local-tooling) · [License](#license)
 
-## What you can use it for
+## What it helps you do
 
-| Your goal | How CogniRings helps |
-| --- | --- |
-| Explore an unfamiliar field | Build a local knowledge map and identify prerequisites and key questions |
-| Follow changes in an industry | Organize recent developments by topic, with dates, sources, changes, and relevance |
-| Develop judgment from what you read | Explain mechanisms, assumptions, trade-offs, and counterexamples |
-| Find methods in other disciplines | Connect a method to your problem and explain when the connection holds or breaks |
-| See how your understanding develops | Preserve evidence of skills, real feedback, knowledge maps, and past reports |
+- Enter an unfamiliar field with a map of its questions, prerequisites, and connections.
+- Follow industry changes through dated, sourced reports organized by topic.
+- Understand mechanisms, compare choices, and examine assumptions and counterexamples.
+- Apply methods from another discipline while checking where the connection holds.
+- See your current goals, evidence of understanding, remaining questions, and meaningful changes over time.
 
-AI is the included example domain, with four starting points: model developments, application engineering, evaluation and optimization, and source assessment. Other domains can develop their own structure around your questions.
-
-## How it works
-
-```mermaid
-flowchart LR
-    Q[Your questions and goals] --> M[Local knowledge map]
-    M --> D[Guided dialogue]
-    D --> R[Recent research and foundations]
-    R --> U[Understanding, judgment, and optional practice]
-    U --> F[Real feedback and work samples]
-    F --> M
-    F --> A[Learning profile and growth journal]
-```
-
-Move between these activities as needed. The mentor usually starts with one question that can change what happens next. If you know the foundations, explore trade-offs and counterexamples. If a concept is unfamiliar, fill in the prerequisites. You can also say “explain directly,” “give me an example,” “show me the news first,” or “don't save this session.”
-
-### Two coordinates for every insight
-
-Key material is labeled with both its **position in the knowledge map** and the **learning activity** it supports.
-
-| Coordinate | Example |
-| --- | --- |
-| Knowledge position | AI → Evaluation and optimization → Comparability → Pareto frontier |
-| Learning activity | Framework building, decision-making, review |
-| Connection across disciplines | Model selection → Multi-objective optimization in decision theory |
-| Evidence you could produce | Explain whether two results are comparable and justify a choice |
-
-Learning activities include mapping, framework building, pattern recognition, decision-making, practice, review, teaching, and transfer/innovation. You can move between them. They help select an approach to learning; they are not a universal ladder or a score for the learner.
-
-### Reports with layers of depth
-
-1. **Orientation:** Where the question sits and why these topics come first.
-2. **Developments:** Items grouped by topic, with dates, original links, source categories, publishers, and verification status.
-3. **Understanding:** Mechanisms, examples, prerequisites, limitations, and connections to other disciplines.
-4. **Growth:** What the session provided, what feedback actually occurred, and how to check understanding next.
-
-## Relationship with last30days
-
-[last30days](https://github.com/mvanhorn/last30days-skill) is an independent dependency for recent research. CogniRings handles mentoring, knowledge organization, and learning records. When recent information is needed, it delegates to the original last30days skill, then adds primary-source verification, foundational material, and connections across disciplines.
-
-| Component | Responsibility |
-| --- | --- |
-| last30days | Recent research, source handling, and research output |
-| CogniRings | Goal setting, guided questions, knowledge maps, layered explanations, feedback, and archives |
-
-This repository does not bundle or modify the last30days implementation. A single setup request installs CogniRings and handles its dependency checks: an existing last30days installation is reused, and a missing one is installed from the original repository. The two components remain independently maintained. Source coverage, credentials, and costs follow the installed upstream version and your host environment. Unavailable sources are disclosed, and supplementary searches are attributed separately.
-
-Sessions that do not need recent research can focus on explanations, organizing knowledge, or reviewing feedback.
+AI is an included starting domain. Other fields grow their own structure around your work and interests.
 
 ## Get started
 
-### Requirements
-
-- A Codex environment that can load local skills, read and write files, and run Python.
-- The archive tool uses the Python standard library and targets macOS/Linux. This repository has been validated with Python 3.14. Native Windows is not currently supported because the script uses `fcntl` file locks.
-- The agent handles the last30days dependency during setup and checks for Python 3.12+. If the runtime needs attention, it follows the upstream setup instructions and retries when possible. Optional research sources can require their own credentials.
-- Other agent hosts require their own skill discovery, tool, and dependency integration. Compatibility with those hosts has not been verified here.
-
 ### Install with one request
 
-Send this single request to Codex:
+Send this to Codex:
 
 ```text
 Use $skill-installer to install https://github.com/zakerror/cognirings.
 Read the installed SKILL.md and complete its dependency setup automatically.
 ```
 
-The agent installs the skill from the repository root, reuses an existing last30days installation or installs the original dependency if missing, and checks the runtime before reporting the result. There is no separate dependency-installation step for you.
+The skill entrypoint is at the repository root. The agent installs CogniRings, reuses an existing [last30days](https://github.com/mvanhorn/last30days-skill) installation or installs the original dependency if missing, and checks the runtime. You do not need a second installation request. Manual installations receive the same check on first use; avoid keeping duplicate installations of the skill.
 
-The same check runs on first use after a manual installation. If you copy the repository to `~/.agents/skills/cognirings/`, keep `SKILL.md` directly inside that folder and avoid duplicate installations. See the [official OpenAI skills documentation](https://learn.chatgpt.com/docs/build-skills) for local skill discovery.
+Use a Codex environment with local skills, filesystem access, and Python. Archive tooling uses the Python standard library and macOS/Linux file locks; native Windows is not supported. The dependency setup checks for Python 3.12+ and follows upstream runtime instructions when needed. Optional research sources can require their own credentials. Setup does not sign you up for services or log in to sources; unavailable coverage is reported. See [installation details](references/installation.md).
 
-Dependency setup does not sign you up for paid services or log in to optional sources. Research-time source checks still follow last30days. If network access, permissions, or a required runtime prevent completion, the agent reports the specific blocker rather than claiming setup succeeded.
-
-### Start a consultation
+### Start with a real question
 
 ```text
-Use $cognirings to help me build a knowledge tree for AI.
-I'm interested in model developments, application engineering,
-evaluation and optimization, and useful websites.
-Start with my actual work and how I make decisions, then identify
-which knowledge to explore. Respond in English.
+Use $cognirings to help me prepare an internal AI sharing session
+for an engineering team. Start with a knowledge tree, then explore
+capability changes and practical applications. Respond in English.
 ```
 
-Continue an existing domain:
+Continue with feedback:
 
 ```text
-Use $cognirings to continue my AI knowledge tree.
-This time, focus on model selection and check whether I'm overlooking
-cost, latency, or differences in evaluation protocols.
+Use $cognirings to review my model-selection experiment.
+Compare my reasoning with earlier evidence, update my current profile,
+and preserve this activity's report and feedback in my journal.
 ```
 
-Explore a connection across disciplines:
+You can say “explain directly,” “show me the news first,” “give an example,” or “don't save this activity.” The mentor uses questions when the answers would change what happens next.
 
-```text
-Use $cognirings to explain what AI judge consistency can learn
-from measurement theory. Explain the connection and where it breaks down.
+## How it works
+
+```mermaid
+flowchart TB
+    A[Question, research, or practical task]
+    subgraph J[journal · Activity history]
+        R[This activity's reports and cases]
+        F[Actual feedback and work samples]
+    end
+    K[knowledge · Current subject synthesis]
+    P[profile · Current understanding and goals]
+    H[Home · Map, profile, reading route, latest reports]
+    N[Next useful learning activity]
+    A --> R
+    A --> F
+    R -->|Combine and correct| K
+    F -->|Reassess with historical evidence| P
+    K --> H
+    P --> H
+    K --> N
+    P --> N
+    N --> A
 ```
 
-Record feedback from real work:
+Current knowledge and profile pages synthesize relevant history. They are not pointers to the newest report. A new report can deepen the knowledge archive while your understanding remains uncalibrated until there is personal evidence.
 
-```text
-Use $cognirings to review this experiment.
-Update my learning profile and Storybook using the actual results,
-while preserving the earlier snapshots.
-```
+### Choose the right learning activity
 
-## Learning archive
+The mentor can act as a guide for **mapping**, an expert for **frameworks**, a coach for **patterns**, a mentor for **decisions**, a partner for **practice**, a **reviewer**, a student for **teaching**, or a collaborator for **transfer and innovation**. Activities can repeat or change order.
 
-Each domain maintains a current learning profile and knowledge map, along with a complete historical snapshot of every saved consultation:
+Key material identifies its position in the knowledge tree, useful prerequisites, and the activity it supports. Reports can expand through four layers: orientation, recent developments, explanation, and next steps for growth. Each news item keeps dates, the original source, publisher, source category, verification, and limitations.
 
-```text
-Me
-├── Domain A
-│   ├── Current learning profile
-│   ├── Current knowledge map
-│   └── Growth history
-│       └── Profile, knowledge map, Storybook, and report for each session
-└── Domain B
-    └── Maintained separately, with supported connections to other domains
-```
+### Understanding and practice are separate
 
-The tree provides navigation; the underlying structure retains graph relationships. Prerequisites must be acyclic, while analogies, applications, comparisons, and connections across domains can form a network.
+Understanding uses an explicit working rubric:
 
-### Evidence drives profile updates
+- **U — Uncalibrated:** insufficient evidence; this does not mean unable.
+- **L1 — Concept awareness:** explain what a concept addresses with material available.
+- **L2 — Recognition and restatement:** explain key points and distinguish examples or related concepts.
+- **L3 — Independent explanation:** explain mechanisms, conditions, and limitations under follow-up questions.
+- **L4 — Derivation and error detection:** reason through unfamiliar cases, correct errors, and give counterexamples.
+- **L5 — Teaching and correction:** adapt an explanation to an audience and address misconceptions and questions.
 
-| Status | Meaning |
-| --- | --- |
-| Not yet verified | There is no evidence yet; this does not imply a lack of ability |
-| Confirmed exposure | You confirm reading or hearing about something; mastery is not established |
-| Self-reported | Your own description is preserved with its source |
-| Demonstrated | An answer, analysis, or work sample supports a claim within the scope checked |
+Practical performance is tracked separately: **unverified → assisted completion → independent completion → demonstrated transfer**. Evidence records the actual work, whether it was observed or self-reported, assistance, task scope, and date. Reading a report or publishing AI-generated material does not establish a level.
 
-Assistance is recorded separately: completing something with hints provides different evidence from completing it independently. The Storybook preserves actual questions, feedback, and changes in understanding. If feedback has not happened, it stays explicitly unrecorded.
+Goals use concrete checkpoints, such as “2 of 4 checks have evidence; 2 remain unverified.” This is evidence coverage, not a mastery percentage. Levels are a mentoring convention, not a validated psychological scale. See the [mentoring rules](references/mentoring.md).
 
-### Where files live
+### Recent research with last30days
 
-The default archive location is `~/Documents/CogniRings`, separate from the skill's code. You can specify another directory in conversation or make `COGNIRINGS_HOME` available to the skill through your host.
+Recent research is delegated to the original last30days skill. CogniRings adds primary-source verification, foundational explanations, cross-domain connections, and personal context. It does not bundle, modify, or reimplement upstream research logic.
+
+Public searches receive generalized research questions; personal profiles and internal source material stay out of search queries. Failed, unconfigured, and empty sources are distinguished. Supplementary searches are attributed separately. A consultation can also proceed without recent research.
+
+## Your learning archive
+
+The homepage starts with the global knowledge tree, current profile, suggested reading, and the latest **10 published reports**. Maintenance changes, refreshed navigation, and duplicate report versions do not enter that list.
 
 ```text
 CogniRings/
-├── person.json
-├── INDEX.md
-└── domains/<domain-id>/
-    ├── current.json
-    └── sessions/<session-id>/
-        ├── bundle.json
-        ├── profile.json / profile.md
-        ├── architecture.json / architecture.md
-        ├── session.json / storybook.md
-        └── report.md
+├── README.md                            # Global map, current profile, reading route, latest 10 reports
+├── knowledge/                           # Current accumulated knowledge; inclusion does not mean mastery
+│   ├── README.md                        # All established domains and proposed connections
+│   └── ai/
+│       ├── README.md                    # Complete AI subtree and domain synthesis
+│       └── evaluation/
+│           ├── README.md                # Branch synthesis: problems, methods, and choices
+│           └── judge-reliability/
+│               ├── README.md            # Current conclusions, mechanisms, limits, and open questions
+│               ├── methods.md           # Optional comparison of methods and selection conditions
+│               ├── cases.md             # Optional cumulative case analysis
+│               ├── sources.md           # Sources, purpose, limitations, and access conditions
+│               └── reading.md           # Links to original reports in journal
+├── profile/                             # Current personal synthesis; same topic paths as knowledge
+│   ├── README.md                        # Goals, background, preferences, evidence, and gaps
+│   ├── history.md                       # Meaningful changes with links to the original records
+│   └── ai/evaluation/judge-reliability/
+│       ├── README.md                    # Understanding, practice, scope, target, and next step
+│       ├── evidence.md                  # Optional explanation of evidence supporting the current view
+│       └── goals.md                     # Optional detailed goals and observable checkpoints
+├── journal/                             # Dated final outputs and actual personal feedback
+│   ├── README.md                        # Human-readable timeline
+│   └── <timestamp>-<topic>/
+│       ├── README.md                    # This activity's question, outcomes, and routes
+│       ├── synthesis.md                 # Optional complete report spanning several topics
+│       ├── knowledge/ai/evaluation/judge-reliability/report.md
+│       │                                # Single original of this activity's topical report
+│       └── profile/ai/evaluation/judge-reliability/reflection.md
+│                                        # Understanding and feedback at the time, with assistance
+└── .cognirings/                          # Agent maintenance area, separate from reading material
+    ├── archive.json                     # Archive version and identity
+    ├── registry/                        # Stable node, artifact, source, and journal identities
+    ├── evidence/                        # Structured references to actual personal evidence
+    ├── state/                           # Derived metrics and navigation state
+    ├── research/                        # Research coverage and verification work
+    ├── work/                            # Drafts; private working material is excluded from publishing
+    ├── maintenance/                     # Migrations, publication, and layout changes
+    └── archive/                         # Preserved legacy material when migrating
 ```
 
-Each save writes a new snapshot before updating the current pointer. A submission cannot overwrite an existing session with the same ID. Personal archives are stored locally by default, and public searches use generalized technical questions. Model processing and network behavior still depend on your agent host.
+This illustrates the structure, not a checklist of files to create. Add documents when they have useful content. Each topic and branch README contains a real synthesis as well as navigation. A journal entry contains only the branches touched that time, rather than full copies of the current trees.
 
-## Local archive tool
+Leaf nodes show substantive knowledge update dates, unique report/case/share counts, understanding and evidence dates, and goal checkpoints. Parent nodes show coverage and distributions rather than average levels. Stable IDs survive directory moves; only prerequisite relationships must be acyclic. Cross-domain concepts retain their original identity.
 
-Everyday use happens through conversation. The following CLI commands are for agents and developers managing the archive. Run them from the repository root:
+The default location is `~/Documents/CogniRings`, separate from skill code. Specify another path in conversation or use `COGNIRINGS_HOME`. Archives remain local unless you authorize publication. Hidden folders are not a privacy boundary: publishing must exclude private drafts, credentials, internal material, and runtime logs.
+
+## Local tooling
+
+Everyday use happens through conversation. Agents and developers can run these commands from the repository root:
 
 ```bash
 python3 scripts/archive.py init --root "$HOME/Documents/CogniRings" --person-name "Me"
 python3 scripts/archive.py status --root "$HOME/Documents/CogniRings"
 python3 scripts/archive.py validate --root "$HOME/Documents/CogniRings"
+python3 scripts/archive.py refresh --root "$HOME/Documents/CogniRings"
 ```
 
-Prepare a `bundle.json` according to the [archive contract (Chinese)](references/archive-contract.md), then commit it:
+`init` creates a v2 archive. `status` and `validate` are read-only. `refresh` rebuilds generated navigation and metrics while preserving hand-written synthesis. The CLI requires explicit `--root`; the skill resolves the default path.
+
+Prepare a v2 bundle using the [archive contract](references/archive-contract.md), then append it:
 
 ```bash
-python3 scripts/archive.py commit --root "$HOME/Documents/CogniRings" --domain ai --bundle bundle.json
+python3 scripts/archive.py record --root "$HOME/Documents/CogniRings" --bundle bundle.json
 ```
 
-The CLI always requires an explicit `--root`; `COGNIRINGS_HOME` is a convention followed by the skill. `status` is read-only. `validate` checks the archive and rebuilds `INDEX.md`. The script does not determine whether a learner has mastered a concept.
+`record` rejects an existing journal ID. The mentor then integrates relevant knowledge and personal evidence into the current pages; scripts do not infer understanding. Existing v1 archives remain readable with `status` and `validate`; `commit` is retained for v1 only. Use `scripts/migrate_v1.py` for an explicit migration into a new directory, then review the current syntheses. Do not initialize over an old archive.
 
-## Repository layout and validation
-
-```text
-cognirings/
-├── README.md
-├── i18n/README.zh-CN.md
-├── DESCRIPTION.txt
-├── LICENSE
-├── SKILL.md
-├── agents/openai.yaml
-├── references/
-│   ├── installation.md
-│   ├── mentoring.md
-│   ├── archive-contract.md
-│   ├── research-adapter.md
-│   ├── ai-domain.md
-│   └── design-provenance.md
-└── scripts/
-    ├── archive.py
-    ├── ensure_dependencies.py
-    ├── test_archive.py
-    └── test_dependencies.py
-```
-
-Run the archive and dependency tests:
+Validate the tooling:
 
 ```bash
 python3 -m unittest discover -s scripts -p 'test_*.py' -v
 ```
 
-The tests cover archive history, failure recovery, concurrent commits, source references, and dependency installation and reuse. They validate tooling behavior. Learning outcomes still require evidence from actual use and work. See the [installation notes (Chinese)](references/installation.md) for the agent-facing setup contract.
-
-The current package contains skill instructions and a local archive tool. Knowledge maps are stored as Markdown, Mermaid, and JSON. It does not include a standalone web application, cloud synchronization, or an automatic research scheduler.
+Tests cover archive and dependency behavior; personal learning still requires real evidence. The package provides skill instructions and local Markdown/Mermaid/JSON tooling. It does not include a standalone web application or automatic research scheduler.
 
 ## Design references
 
-- [last30days](https://github.com/mvanhorn/last30days-skill): Independent recent-research dependency.
-- [grill-me](https://github.com/RobMitt/grill-me-skill): One key question at a time and interviews guided by dependencies.
-- [Universal Diagnostic Tutor](https://github.com/SenmuuuuW/universal-diagnostic-tutor-skill): Prerequisite gaps and diagnostic guidance.
-- [Supertutor](https://github.com/cskwork/supertutor-skill): Distinguishing assisted from independent performance and checking understanding in new situations.
-
-See the [design notes (Chinese)](references/design-provenance.md) for specific influences and boundaries. Linking to a reference project does not incorporate its code or license into this repository.
+[last30days](https://github.com/mvanhorn/last30days-skill) supplies recent research. [grill-me](https://github.com/RobMitt/grill-me-skill), [Universal Diagnostic Tutor](https://github.com/SenmuuuuW/universal-diagnostic-tutor-skill), and [Supertutor](https://github.com/cskwork/supertutor-skill) informed guided questioning, prerequisite diagnosis, and evidence-aware mentoring. See [design notes](references/design-provenance.md). Reference links do not incorporate external code or licenses.
 
 ## License
 
-This repository uses the [MIT License](LICENSE) for its original code and accompanying documentation. Use, modification, redistribution, and commercial use are permitted, subject to retaining the copyright and permission notice. No warranty is provided. See LICENSE for the full terms.
-
-last30days and other external projects retain their own licenses. Personal learning archives, retrieved material, and external web pages do not automatically acquire this repository's MIT license through use of the skill.
+Original code and accompanying documentation use the [MIT License](LICENSE). External projects retain their own licenses. Personal learning archives and retrieved materials do not automatically acquire this repository's MIT license through use of the skill.

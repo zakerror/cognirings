@@ -22,3 +22,9 @@ __pycache__/
 
 # Local packaging output
 *.zip
+
+# v2 personal archives remain outside the skill package
+/knowledge/
+/profile/
+/journal/
+/.cognirings/
