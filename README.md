@@ -8,7 +8,13 @@ CogniRings (知年轮) is an AI mentoring skill for Codex. It connects guided di
 
 Your archive has three readable views: **knowledge** explains what has been learned about a subject, **profile** describes your current understanding with evidence, and **journal** preserves the reports and personal feedback from each activity. Collected material does not imply mastery.
 
-[Get started](#get-started) · [How it works](#how-it-works) · [Your learning archive](#your-learning-archive) · [Local tooling](#local-tooling) · [License](#license)
+[Why CogniRings](#why-cognirings) · [Get started](#get-started) · [How it works](#how-it-works) · [Your learning archive](#your-learning-archive) · [Local tooling](#local-tooling) · [License](#license)
+
+## Why CogniRings
+
+We often ask how to make AI more human, or even more capable than we are. At the same time, another question deserves our attention: **how can we grow as people in this changing world?**
+
+CogniRings aims to help you grow like a tree: deepen your roots by understanding how things work, branch out by connecting ideas across fields, and develop your own judgment through questions, practice, and reflection. As your understanding deepens, your judgment evolves, and you learn through practice, these changes gradually form **rings of understanding**, a record you can return to and build on.
 
 ## What it helps you do
 
