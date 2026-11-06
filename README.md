@@ -20,6 +20,7 @@ CogniRings aims to help you grow like a tree: deepen your roots by understanding
 
 - Enter an unfamiliar field with a map of its questions, prerequisites, and connections.
 - Follow industry changes through dated, sourced reports organized by topic.
+- Prioritize reading with evidence, recency, community attention, search interest, historical novelty, and personal relevance.
 - Understand mechanisms, compare choices, and examine assumptions and counterexamples.
 - Apply methods from another discipline while checking where the connection holds.
 - See your current goals, evidence of understanding, remaining questions, and meaningful changes over time.
@@ -112,6 +113,14 @@ Recent research is delegated to the original last30days skill. CogniRings adds p
 
 Public searches receive generalized research questions; personal profiles and internal source material stay out of search queries. Failed, unconfigured, and empty sources are distinguished. Supplementary searches are attributed separately. A consultation can also proceed without recent research.
 
+### Search interest and reading priority
+
+News research also checks **Google Trends** for search interest, with **Baidu Index** as an optional source for Chinese search demand. Agents use accessible official pages, exports, or an already authorized API; this package does not install a scraper or promise access to restricted sources. Google Trends API access currently requires an alpha application. See the [data collection and ranking rules](references/news-ranking.md).
+
+Community engagement and search interest are separate signals. The default v1.1 priority weights are **20% evidence, 15% recency, 7.5% community attention, 7.5% search interest, 20% historical novelty, and 30% personal relevance**. This splits the previous attention budget rather than increasing it. Reports stay organized by the knowledge tree, with ranking inside branches and explicit missing-data ranges.
+
+Google Trends website indices are comparable only within the same comparison context; a brand's popularity is not automatically evidence of interest in each of its releases. Unavailable or insufficient data remains unknown. The included scorer accepts comparable Google Trends website series; API scales, Baidu indices, and uncalibrated batches remain separate contextual evidence until an appropriate normalization is implemented. [Google's data explanation](https://support.google.com/trends/answer/4365533?hl=en), [API availability and scale](https://developers.google.com/search/apis/trends).
+
 ## Your learning archive
 
 The homepage starts with the global knowledge tree, current profile, suggested reading, and the latest **10 published reports**. Maintenance changes, refreshed navigation, and duplicate report versions do not enter that list.
@@ -191,7 +200,9 @@ Validate the tooling:
 python3 -m unittest discover -s scripts -p 'test_*.py' -v
 ```
 
-Tests cover archive and dependency behavior; personal learning still requires real evidence. The package provides skill instructions and local Markdown/Mermaid/JSON tooling. It does not include a standalone web application or automatic research scheduler.
+Tests cover archive, dependency, and ranking behavior; personal learning still requires real evidence. The package provides skill instructions and local Markdown/Mermaid/JSON tooling. It does not include a standalone web application or automatic research scheduler.
+
+For an already verified news set, use `python3 scripts/rank_news.py ranking-input.json` to calculate the upper-layer priority. The [input example and scoring contract](references/news-ranking.md#可复算输入) explain source provenance, comparison limits, and the distinction between missing and zero. The helper does not fetch data, establish factual correctness, or infer mastery.
 
 ## Design references
 
