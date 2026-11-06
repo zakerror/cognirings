@@ -121,6 +121,10 @@ Community engagement and search interest are separate signals. The default v1.1 
 
 Google Trends website indices are comparable only within the same comparison context; a brand's popularity is not automatically evidence of interest in each of its releases. Unavailable or insufficient data remains unknown. The included scorer accepts comparable Google Trends website series; API scales, Baidu indices, and uncalibrated batches remain separate contextual evidence until an appropriate normalization is implemented. [Google's data explanation](https://support.google.com/trends/answer/4365533?hl=en), [API availability and scale](https://developers.google.com/search/apis/trends).
 
+**Trend charts are available on request**, for example: “Show the search-interest trend for this topic over the last 30 days.” The view includes a dated curve, optional 7-day moving average, recent-period summaries, and inspectable query/source details. Interactive hosts can show individual values and switch the visible range while keeping the same scale. See the [trend display rules](references/search-trend-display.md).
+
+Real observations are the default. If a source is rate-limited, inaccessible, or lacks sufficient data, CogniRings reports that state and keeps the curve unavailable. Simulated data is used only when you explicitly request a layout example or mock demonstration; it remains visibly labeled and excluded from formal search-interest scoring.
+
 ## Your learning archive
 
 The homepage starts with the global knowledge tree, current profile, suggested reading, and the latest **10 published reports**. Maintenance changes, refreshed navigation, and duplicate report versions do not enter that list.

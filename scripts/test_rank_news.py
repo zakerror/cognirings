@@ -109,6 +109,23 @@ class RankNewsTests(unittest.TestCase):
         self.assertEqual(row["search_heat"], 50)
         self.assertEqual(row["reported_zero_points"], 1)
 
+    def test_simulated_search_series_cannot_enter_formal_scoring(self):
+        data = payload(item(search_interest=evidence([100, 100], data_kind="simulated")))
+        simulated = rank_news(data)["ranked"][0]
+        unavailable = rank_news(payload(item(search_interest=None)))["ranked"][0]
+        self.assertIsNone(simulated["search_heat"])
+        self.assertEqual(simulated["search_status"], "simulated_data")
+        self.assertEqual(simulated["score"], unavailable["score"])
+        self.assertEqual(simulated["possible_range"], unavailable["possible_range"])
+
+    def test_observed_marker_preserves_results_and_unknown_marker_is_not_trusted(self):
+        observed = rank_news(payload(item(search_interest=evidence(data_kind="observed"))))["ranked"][0]
+        legacy = rank_news(payload(item()))["ranked"][0]
+        self.assertEqual(observed, legacy)
+        unknown = rank_news(payload(item(search_interest=evidence(data_kind="generated"))))["ranked"][0]
+        self.assertIsNone(unknown["search_heat"])
+        self.assertEqual(unknown["search_status"], "invalid_metadata")
+
     def test_missing_ranges_and_observed_community_zero(self):
         candidate = item(search_interest=None)
         row = rank_news(payload(candidate))["ranked"][0]

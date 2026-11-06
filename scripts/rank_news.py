@@ -10,7 +10,7 @@ from urllib.parse import urlsplit
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 
-POLICY_VERSION = "cognirings-priority-v1.1"
+POLICY_VERSION = "cognirings-priority-v1.1.1"
 WEIGHTS = {"S": .20, "T": .15, "C": .075, "E": .075, "N": .20, "R": .30}
 MISSING_STATUSES = {
     "not_configured", "unavailable", "auth_required", "rate_limited",
@@ -47,6 +47,11 @@ def search_score(record, window):
         return missing("not_configured")
     if not isinstance(record, dict):
         raise ValueError("search_interest must be an object or null")
+    data_kind = record.get("data_kind", "observed")
+    if data_kind == "simulated":
+        return missing("simulated_data")
+    if data_kind != "observed":
+        return missing("invalid_metadata")
     status = record.get("status")
     if status in MISSING_STATUSES:
         return missing(status)
