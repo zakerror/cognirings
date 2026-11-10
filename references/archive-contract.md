@@ -60,6 +60,8 @@ CogniRings/
 
 维护权限与上传范围不能用隐藏目录推断。发布前排除凭据、内部原文、私密草稿、运行日志及第三方长篇材料；保留能公开的来源和核验说明。
 
+用户授权的持续同步保存在 `.cognirings/policies/publication.json`，本机源目录/检出目录保存在不发布的 `.cognirings/sync.local.json`。沉淀后的同步流程、发布投影和历史保护见[档案同步](archive-sync.md)。它是当前活动结束时的工作，不是后台定时器；首次发布目标未知时不默认公开个人档案。
+
 ## CLI 与写入流程
 
 替换实际 `SKILL_DIR`、`ROOT`、`BUNDLE_JSON`，正确引用路径，不将用户文本拼入 shell 代码。

@@ -177,6 +177,8 @@ Leaf nodes show substantive knowledge update dates, unique report/case/share cou
 
 The default location is `~/Documents/CogniRings`, separate from skill code. Specify another path in conversation or use `COGNIRINGS_HOME`. Archives remain local unless you authorize publication. Hidden folders are not a privacy boundary: publishing must exclude private drafts, credentials, internal material, and runtime logs.
 
+You can authorize ongoing Git synchronization: “After each saved learning activity, sync and push my archive to this repository.” CogniRings records the destination and scope in that archive, then verifies and pushes each completed update without requesting the same permission again. Existing published history is preserved; personal paths and credentials stay local. Failed pushes are reported separately from successful local saves. See [archive synchronization](references/archive-sync.md). This runs with each activity, rather than as a background schedule.
+
 ## Local tooling
 
 Everyday use happens through conversation. Agents and developers can run these commands from the repository root:
